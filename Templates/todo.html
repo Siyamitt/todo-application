@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class=" container my-5" style="backdrop-filter: blur(20px); height: 70vh;">
+    <h1 class="text-center">ToDo List</h1>
+    <div class="table-responsive">
+        
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for todo in todos %}
+
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ todo.task }}</td>
+                    <td>{{ todo.created_at }}</td>
+                    <td>
+                        <a href="{% url 'update_todo' todo.id %}" type="button" class="btn  btn-sm text-light" style="background-color: black;">Update</a>
+                        <a href="{% url 'delete_todo' todo.id %}" type="button" class="btn btn-sm text-light " style="background-color: rgb(110, 94, 80);">Delete</a>
+                        <a href="{% url 'complete_todo' todo.id %}" type="button" class="btn btn-sm text-dark " style="background-color: rgb(219, 188, 161);">Complete</a>
+
+                    </td>
+                </tr>
+
+                {% endfor %}
+                
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'add_todo' %}" class="btn mb-3 text-light" style="background-color: rgb(110, 94, 80);">Add Todo</a>
+    </div>
+    <h1 class="text-center mt-5" >Completed Todos List</h1>
+
+    <table class="table table-hover mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for todo in completed_todos %}
+
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ todo.task }}</td>
+                <td>{{ todo.created_at }}</td>
+                <td>
+                    <a href="{% url 'delete_todo' todo.id %}" type="button" class="btn btn-sm text-light " style="background-color: rgb(110, 94, 80);">Delete Permanently</a>
+
+                </td>
+            </tr>
+
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
